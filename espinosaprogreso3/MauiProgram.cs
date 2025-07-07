@@ -1,25 +1,34 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using espinosaprogreso3.Services;
+using espinosaprogreso3.ViewModels;
+using espinosaprogreso3.Views;
 
-namespace espinosaprogreso3
+namespace espinosaprogreso3;
+
+public static class MauiProgram
 {
-    public static class MauiProgram
+    public static MauiApp CreateMauiApp()
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+        // Registrar servicios
+        builder.Services.AddSingleton<DatabaseService>();
 
-            return builder.Build();
-        }
+        // Registrar ViewModels
+        builder.Services.AddSingleton<ListaPrendasViewModel>();
+        builder.Services.AddTransient<FormularioViewModel>();
+        builder.Services.AddTransient<LogsViewModel>();
+
+        // Registrar Views
+        builder.Services.AddSingleton<ListaPrendaPage>();
+        builder.Services.AddTransient<FormularioPage>();
+        builder.Services.AddTransient<LogsPage>();
+
+        return builder.Build();
     }
 }
