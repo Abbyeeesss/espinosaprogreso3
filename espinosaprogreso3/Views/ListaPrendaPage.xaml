@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="espinosaprogreso3.Views.ListaPrendaPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="espinosaprogreso3.Views.ListaPrendaPage"
-             Title="ListaPrendaPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Lista de Prendas">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="15">
+
+            <Label Text="Prendas Registradas"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <CollectionView ItemsSource="{Binding Prendas}"
+                            EmptyView="No hay prendas registradas">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,5" BorderColor="LightGray">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding NombrePrenda}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding Color}" />
+                                <Label Text="{Binding Talla, StringFormat='Talla: {0}'}" />
+                                <Label Text="{Binding EnInventario, StringFormat='En Inventario: {0}'}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Actualizar"
+                    Command="{Binding RefreshCommand}"
+                    BackgroundColor="#007BFF"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="45" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

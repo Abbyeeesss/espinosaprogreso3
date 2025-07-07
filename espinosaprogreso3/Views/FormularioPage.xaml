@@ -1,25 +1,57 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             x:Class="espinosaprogreso3.Views.FormularioPage"
-             xmlns:vm="clr-namespace:espinosaprogreso3.ViewModels">
-    <ContentPage.BindingContext>
-        <vm:FormularioViewModel/>
-    </ContentPage.BindingContext>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="espinosaprogreso3.Views.FormularioPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Nueva Prenda">
 
-    <ContentPage.Title>Abigail Espinosa - 07/07/2003</ContentPage.Title>
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="15">
 
-    <StackLayout Padding="20">
-        <Label Text="Prenda:" />
-        <Entry Text="{Binding PrendaNombre}" />
+            <Label Text="Formulario de Registro"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-        <Label Text="Color:" />
-        <Entry Text="{Binding Color}" />
+            <Label Text="Nombre de la Prenda" />
+            <Entry Text="{Binding NombrePrenda}"
+                   Placeholder="Ej: Camisa, Pantalón" />
 
-        <Label Text="Talla:" />
-        <Entry Text="{Binding Talla}" Keyboard="Numeric" />
+            <Label Text="Color" />
+            <Entry Text="{Binding Color}"
+                   Placeholder="Ej: Rojo, Azul" />
 
-        <Label Text="¿En inventario?" />
-        <Switch IsToggled="{Binding EnInventario}" />
+            <Label Text="Talla" />
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Stepper Minimum="1"
+                         Maximum="100"
+                         Increment="1"
+                         Value="{Binding Talla}" />
+                <Label Text="{Binding Talla}"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+            </StackLayout>
 
-        <Button Text="Guardar" Command="{Binding GuardarCommand}" />
-    </StackLayout>
+            <Label Text="¿Está en inventario?" />
+            <Switch IsToggled="{Binding EnInventario}" />
+
+            <Button Text="Guardar"
+                    Command="{Binding GuardarCommand}"
+                    BackgroundColor="#007BFF"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="45" />
+
+            <Button Text="Limpiar"
+                    Command="{Binding LimpiarCommand}"
+                    BackgroundColor="#6C757D"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="45" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#007BFF"
+                               HeightRequest="30" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
